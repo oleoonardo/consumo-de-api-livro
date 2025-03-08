@@ -1,84 +1,102 @@
-# Juridiq Full Stack Challenge
 
-## 🏆 Objetivo
+# Coleção de Livros
 
-Avaliar as habilidades do candidato no desenvolvimento fullstack utilizando **Next.js**, **Node.js** e **TypeScript**. Este desafio visa compreender sua capacidade de estruturar projetos, criar APIs e desenvolver interfaces modernas e funcionais.
+Este projeto permite a gestão de livros, com funcionalidades para cadastrar, listar, editar, filtrar e deletar livros de uma base de dados. A aplicação está dividida entre o backend e o frontend, sendo possível rodá-los localmente.
+
+## Funcionalidades
+
+- **Cadastrar novos livros**: Permite adicionar livros ao sistema.
+- **Listar livros**: Exibe todos os livros cadastrados na plataforma.
+- **Filtrar livros pelo título**: Permite procurar livros com base no título.
+- **Editar livros**: Possibilita a edição das informações de um livro já cadastrado.
+- **Deletar livros**: Permite remover livros da base de dados.
+
+## Como Executar o Projeto
+
+### 1. Clonando o Repositório
+
+Clone este repositório para o seu ambiente local:
+
+```bash
+git clone https://github.com/seuusuario/colecao-livros.git
+```
+
+### 2. Executando o Backend
+
+Para rodar o backend, siga os seguintes passos:
+
+1. Abra o terminal e navegue até a pasta `backend`:
+
+    ```bash
+    cd backend
+    ```
+
+2. Instale as dependências:
+
+    ```bash
+    npm install
+    ```
+
+3. Crie a variável de ambiente `.env` contendo a URL do seu banco de dados MongoDB:
+
+    ```
+    DATABA_URL = "mongodb+srv://usuario:senha@cluster.mongodb.net/meubanco"
+    ```
+
+4. Gere as migrações do Prisma:
+
+    ```bash
+    npx prisma generate
+    ```
+
+5. Inicie o servidor:
+
+    ```bash
+    npm start
+    ```
+
+O backend estará disponível em `http://localhost:8080`.
+
+### 3. Executando o Frontend
+
+Para rodar o frontend, siga os seguintes passos:
+
+1. Abra o terminal e navegue até a pasta `frontend`:
+
+    ```bash
+    cd frontend
+    ```
+
+2. Instale as dependências:
+
+    ```bash
+    npm install
+    ```
+
+3. Construa o projeto para produção:
+
+    ```bash
+    npm run build
+    ```
+
+4. Inicie o servidor do frontend:
+
+    ```bash
+    npm start
+    ```
+
+O frontend estará disponível em `http://localhost:3000`.
+
+## Link do Projeto em Produção
+
+Você também pode testar o projeto em produção através do seguinte link:
+
+[https://colecao-livros.onrender.com/](https://colecao-livros.onrender.com/)
 
 ---
 
-## 🚀 Descrição do Projeto
+## Tecnologias Usadas
 
-O desafio consiste em criar uma aplicação fullstack para gerenciar uma lista de livros. A aplicação terá um backend baseado no framework **Fastify** e um frontend construído com **Next.js** e **Shadcn UI**, utilizando **TypeScript** como linguagem principal.
+- **Backend**: Node.js, Prisma, MongoDB
+- **Frontend**: Next.js, React
 
----
-
-## 🛠️ Tecnologias e Ferramentas
-
-- **Linguagem:** TypeScript
-- **Backend:** Fastify
-- **Frontend:** Next.js + Shadcn UI + TailwindCss
-- **Versionamento de Código:** Git
-
----
-
-## 📝 Tarefas
-
-### 1. Configuração do Ambiente
-
-- Configure um novo projeto Node.js utilizando TypeScript.
-- Crie uma aplicação Next.js configurada com Shadcn UI e TypeScript.
-- Instale e configure as dependências necessárias para ambos os ambientes (frontend e backend).
-
-### 2. Desenvolvimento do Backend (API)
-
-Implemente uma API REST com os seguintes requisitos:
-
-- **Entidade:** `Book`  
-  - **Campos:** 
-    - `id` (string, UUID)  
-    - `title` (string)  
-    - `author` (string)  
-    - `publishedYear` (number)  
-
-#### Endpoints:
-
-1. **`POST /books`**  
-   - Adiciona um novo livro.  
-   - **Request Body:**  
-     ```json
-     {
-       "title": "string",
-       "author": "string",
-       "publishedYear": "number"
-     }
-     ```
-
-2. **`GET /books`**  
-   - Retorna a lista de todos os livros cadastrados.  
-   - **Bônus:** Implemente um filtro opcional para buscar livros pelo campo `title`.  
-
-### 3. Desenvolvimento do Frontend
-
-- A interface do frontend é livre para criação e deve ser implementada utilizando **Next.js** e **Shadcn UI**.
-- Crie páginas que permitam:
-  - Cadastrar novos livros.
-  - Listar os livros já cadastrados.
-  - (Bônus) Filtrar os livros pelo título.
-
----
-
-## 🏗️ Entrega
-
-- O código-fonte deve ser enviado através de um repositório público no **GitHub**.
-- Envie o link do repositório para o e-mail: **contato@juridiq.com.br**.
-- Certifique-se de incluir um **README.md** com:
-  - Instruções claras sobre como configurar e executar o projeto.
-  - Detalhes sobre as decisões tomadas durante o desenvolvimento.
-
----
-
-## 📌 Observações
-
-- Utilize boas práticas de desenvolvimento, incluindo organização de código, estrutura de pastas e padronização.
-- A criatividade no design e funcionalidades do frontend será um diferencial.  
-- (Bônus) Forneça testes automatizados para os endpoints e/ou componentes.
