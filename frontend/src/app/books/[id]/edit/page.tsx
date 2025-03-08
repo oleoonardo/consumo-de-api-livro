@@ -1,6 +1,7 @@
-"use client";
+// page.tsx
+"use client"
 
-import { useEffect, useState, use } from "react";
+import { useEffect, useState } from "react";
 import BookForm from "@/components/BookForm";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -13,11 +14,10 @@ interface Book {
   publishedYear: number;
 }
 
-export default function EditBookPage({ params }: { params: Promise<{ id: string }> | { id: string } }) {
-  // Handle both Promise and direct object access
-  const unwrappedParams = params instanceof Promise ? use(params) : params;
-  const bookId = unwrappedParams.id;
-  
+// Este código é renderizado no cliente, pois a diretiva "use client" foi aplicada
+export default function EditBookPage({ params }: any) {
+  const bookId = params?.id || params?.bookId || "";
+
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -30,34 +30,25 @@ export default function EditBookPage({ params }: { params: Promise<{ id: string 
         setLoading(false);
         return;
       }
-      
-      
-      try {
-        // Log the URL we're fetching from for debugging
-        const url = `http://localhost:8080/book/${bookId}`;
 
-        
+      try {
+        const url = `http://localhost:8080/book/${bookId}`;
         const response = await fetch(url);
 
-        
         if (!response.ok) {
           const errorText = await response.text().catch(() => "");
-
           throw new Error(`O servidor respondeu com status ${response.status}`);
         }
-        
+
         const data = await response.json();
 
-        
         if (!data || !data.id) {
           throw new Error("Dados de livro inválidos recebidos");
         }
-        
+
         setBook(data);
       } catch (error) {
-
         setError("Não foi possível carregar o livro. Tente novamente.");
-        
         if (error instanceof Error) {
           setDetailedError(error.message);
         } else {
@@ -103,7 +94,7 @@ export default function EditBookPage({ params }: { params: Promise<{ id: string 
             <AlertCircle className="h-4 w-4 mr-2" />
             <AlertDescription>{error}</AlertDescription>
           </Alert>
-          
+
           {detailedError && (
             <div className="p-4 border rounded-lg bg-gray-50 text-gray-700 text-sm mt-4">
               <p className="font-semibold">Detalhe do Erro:</p>
@@ -111,9 +102,9 @@ export default function EditBookPage({ params }: { params: Promise<{ id: string 
               <p className="mt-2">Id Livro: {bookId || "None"}</p>
             </div>
           )}
-          
+
           <div className="mt-6 flex justify-center">
-            <a 
+            <a
               href="/"
               className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-colors"
             >
@@ -132,7 +123,7 @@ export default function EditBookPage({ params }: { params: Promise<{ id: string 
         <div className="max-w-md mx-auto">
           <div className="p-6 border rounded-lg bg-yellow-50 text-yellow-700 text-center">
             <p>Não há dados de livros disponíveis.</p>
-            <a 
+            <a
               href="/"
               className="inline-block mt-4 px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-colors"
             >

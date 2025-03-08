@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,8 @@ interface Book {
   publishedYear: number;
 }
 
-export default function SearchPage() {
+// Componente que usa useSearchParams
+function SearchContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialQuery = searchParams.get("q") || "";
@@ -117,7 +118,7 @@ export default function SearchPage() {
       ) : initialQuery && books.length === 0 ? (
         <Card>
           <CardContent className="p-6 text-center">
-            <h2 className="text-xl font-semibold text-gray-600">Nenhum livro conrrespondente encontrado "{initialQuery}"</h2>
+            <h2 className="text-xl font-semibold text-gray-600">Nenhum livro correspondente encontrado "{initialQuery}"</h2>
             <p className="text-gray-500 mt-2">Tente outro termo de pesquisa ou adicione um novo livro</p>
           </CardContent>
         </Card>
@@ -143,5 +144,48 @@ export default function SearchPage() {
         </Card>
       )}
     </div>
+  );
+}
+
+// Componente principal da página com Suspense
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="container mx-auto py-8 px-4">
+        <div className="mb-6">
+          <div className="flex items-center text-gray-600">
+            <Skeleton className="h-4 w-4 mr-1" />
+            <Skeleton className="h-4 w-32" />
+          </div>
+        </div>
+        
+        <Skeleton className="h-8 w-64 mb-6" />
+        
+        <div className="mb-8">
+          <div className="flex gap-2">
+            <div className="relative flex-grow">
+              <Skeleton className="h-10 w-full" />
+            </div>
+            <Skeleton className="h-10 w-24" />
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, index) => (
+            <Card key={index}>
+              <CardHeader>
+                <Skeleton className="h-6 w-3/4" />
+              </CardHeader>
+              <CardContent>
+                <Skeleton className="h-4 w-1/2 mb-2" />
+                <Skeleton className="h-4 w-1/3" />
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    }>
+      <SearchContent />
+    </Suspense>
   );
 }
