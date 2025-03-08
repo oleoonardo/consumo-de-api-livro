@@ -18,7 +18,7 @@ Este projeto permite a gestão de livros, com funcionalidades para cadastrar, li
 Clone este repositório para o seu ambiente local:
 
 ```bash
-git clone https://github.com/seuusuario/colecao-livros.git
+git clone https://github.com/oleoonardo/consumo-de-api-livro.git
 ```
 
 ### 2. Executando o Backend
