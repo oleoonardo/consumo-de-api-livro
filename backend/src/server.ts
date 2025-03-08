@@ -14,10 +14,12 @@ const start = async () => {
         origin: "*",
         methods: ["GET", "POST", "PUT", "DELETE"],
       });
+
     await app.register(routes);
 
     try {
-        await app.listen( {port:8080});
+        const port = process.env.PORT || "8080";
+        await app.listen({ port: parseInt(port), host: '0.0.0.0' });
     } catch (err) {
         app.log.error(err);
         process.exit(1);
